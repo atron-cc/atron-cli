@@ -10,7 +10,7 @@ setup(
     author='Ahmadreza Zibaei',
     install_requires=["click"],
     author_email='zibaeiahmadreza@gmail.com',
-    url='https://github.com/atron-cc/atron',
+    url='https://github.com/atron-cc/atron-cli',
     license='MIT',
     classifiers=[
         'Development Status :: 1 - Beta',
