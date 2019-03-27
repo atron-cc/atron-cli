@@ -28,6 +28,6 @@ setup(
     keywords=['micropython', 'hardware', 'circuitpython'],
     entry_points='''
         [console_scripts]
-        atron=atron_cli.atron:base
+        atron=atron_cli.atron:cli
     ''',
 )
