@@ -68,6 +68,32 @@ def reset(hard):
     if not hard:
         _board.soft_reset()
         return
+    # TODO: Hard reset is not implemented.
+
+
+@cli.command()
+def raw_command():
+    click.secho('the raw-command is under construction and may have some bugs.', fg='yellow')
+    click.secho('entering raw-command mode ...', fg='green')
+    _board.soft_reset()
+    time.sleep(1)
+
+    _board.board.enter_raw_repl()
+    try:
+        while True:
+            command = raw_input(">>> ")
+            result = _board.board.exec_raw(command)
+            if result[0]:
+                print(result[0])
+    finally:
+        _board.board.exit_raw_repl()
+        _board.soft_reset()
+
+
+@cli.command()
+@click.argument("remote_folder")
+def rmdir(remote_folder):
+    _board.files.rmdir(remote_folder)
 
 
 @cli.command()
@@ -121,6 +147,25 @@ def put(local, remote):
 @click.argument("remote_file")
 def rm(remote_file):
     _board.files.rm(remote_file)
+
+
+@cli.command()
+@click.argument("local_file")
+@click.option(
+    "--no-output",
+    "-n",
+    is_flag=True,
+    help="Run the code without waiting for it to finish and print output.  Use this when running code with main loops that never return.",
+)
+def run(local_file, no_output):
+    try:
+        output = _board.files.run(local_file, not no_output)
+        if output is not None:
+            click.secho(output.decode("utf-8"))
+    except IOError:
+        click.echo(
+            "Failed to find or read input file: {0}".format(local_file), err=True
+        )
 
 
 if __name__ == '__main__':

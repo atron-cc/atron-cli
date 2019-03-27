@@ -12,4 +12,5 @@ while True:
         led.toggle()
         delay(50)
     delay(100)
+    print("hello")
     
