@@ -1,16 +1,8 @@
 from pyb import LED, delay
 
-leds = [
-    LED(1),
-    LED(2),
-    LED(3),
-    LED(4),
-]
+led = LED(1)
 
 while True:
-    for led in leds:
-        led.toggle()
-        delay(50)
+    led.toggle()
     delay(100)
-    print("hello")
     
