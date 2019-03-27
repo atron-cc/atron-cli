@@ -4,6 +4,7 @@ import platform
 import os
 from minifier import minify
 from .board import Board, BoardException, DirectoryExistsError
+from .board import PyboardError
 
 _board = None
 
@@ -73,7 +74,8 @@ def reset(hard):
 
 @cli.command()
 def raw_command():
-    click.secho('the raw-command is under construction and may have some bugs.', fg='yellow')
+    click.secho(
+        'the raw-command is under construction and may have some bugs.', fg='yellow')
     click.secho('entering raw-command mode ...', fg='green')
     _board.soft_reset()
     time.sleep(1)
@@ -166,6 +168,38 @@ def run(local_file, no_output):
         click.echo(
             "Failed to find or read input file: {0}".format(local_file), err=True
         )
+
+
+@cli.command()
+@click.argument("directory", default="/")
+@click.option(
+    "--long_format",
+    "-l",
+    is_flag=True,
+    help="Print long format info including size of files.  Note the size of directories is not supported and will show 0 values.",
+)
+@click.option(
+    "--recursive",
+    "-r",
+    is_flag=True,
+    help="recursively list all files and (empty) directories.",
+)
+def ls(directory, long_format, recursive):    
+    try:
+        files = _board.files.ls(directory, long_format=long_format, recursive=recursive)
+    except PyboardError as err:
+        click.secho('PyBoard Exception.', fg='red')
+        click.secho(str(err), fg='yellow')
+        return
+    
+    for f in files:
+        if not long_format:
+            click.secho(
+                f,
+                fg='green' if os.path.splitext(f)[1].lower() == '.py' else 'white',
+            )
+        else:
+            click.echo(f)
 
 
 if __name__ == '__main__':

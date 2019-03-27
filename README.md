@@ -45,6 +45,19 @@ Example(s):
 $ atron --port /dev/ttyACM0 rm main.py
 ```
 
+##### Ls
+
+The `ls` command will list files from pyboard.
+
+Example(s):
+
+```
+$ atron --port /dev/ttyACM0 ls
+$ atron --port /dev/ttyACM0 ls --recursive
+$ atron --port /dev/ttyACM0 ls /flash --recursive
+$ atron --port /dev/ttyACM0 ls /flash --recursive --long_format
+```
+
 ##### Put
 
 The `put` command will put file or directory to selected path in pyboard.
