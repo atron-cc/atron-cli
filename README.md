@@ -3,6 +3,22 @@
 > A tool to intract with your MicroPython board.
 > Based on Adafruit MicroPython Tool (ampy)
 
+### Installation
+
+##### Using pip
+
+```
+$ sudo pip install atron-cli
+```
+
+##### From source
+
+```
+$ git clone https://github.com/atron-cc/atron-cli
+$ cd atron-cli
+$ sudo python setup.py install
+```
+
 ### Usage
 
 ```

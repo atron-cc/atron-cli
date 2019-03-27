@@ -13,7 +13,6 @@ setup(
     url='https://github.com/atron-cc/atron-cli',
     license='MIT',
     classifiers=[
-        'Development Status :: 1 - Beta',
         "Topic :: Utilities",
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
